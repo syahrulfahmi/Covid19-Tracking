@@ -7,6 +7,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
         
     }
     dependencies {
@@ -22,7 +23,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url "https://jitpack.io" }
+
     }
 }
 
@@ -32,4 +34,5 @@ task clean(type: Delete) {
 
 ext {
     recyclerView = '1.1.0-beta03'
+    googleMaterial = '1.0.0-alpha1'
 }

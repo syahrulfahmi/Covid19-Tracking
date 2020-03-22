@@ -33,7 +33,7 @@ data class ConfirmedCasesModel(
     @SerializedName("long")
     val long: Double,
     @SerializedName("provinceState")
-    val provinceState: String,
+    val provinceState: String?,
     @SerializedName("recovered")
     val recovered: Int
 )

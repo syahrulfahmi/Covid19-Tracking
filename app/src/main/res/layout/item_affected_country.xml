@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
     android:paddingRight="8dp"
-    app:cardBackgroundColor="@color/grey_400"
-    app:cardCornerRadius="5dp">
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,9 +16,9 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/view"
-            android:layout_width="100dp"
+            android:layout_width="5dp"
             android:layout_height="100dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

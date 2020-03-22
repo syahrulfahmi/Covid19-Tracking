@@ -1,12 +1,15 @@
 package com.cvd.sf.adapter
 
+import android.content.Context
 import com.cvd.sf.Model.ConfirmedCasesModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cvd.sf.R
-import kotlinx.android.synthetic.main.item_affected_country.view.*
+import com.cvd.sf.Utils.thousandSeparatorUtils
+import kotlinx.android.synthetic.main.item_top_affected.view.*
 import java.util.*
 
 /**
@@ -14,15 +17,15 @@ import java.util.*
  * Created By fahmi on 22/03/20
  */
 
-class AffectedCountryAdapter :
-    RecyclerView.Adapter<AffectedCountryAdapter.ItemViewHolder>() {
+class TopConfirmedAdapter (private val context: Context) :
+    RecyclerView.Adapter<TopConfirmedAdapter.ItemViewHolder>() {
 
     private var items = ArrayList<ConfirmedCasesModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.item_affected_country, parent, false)
+            .inflate(R.layout.item_top_affected, parent, false)
         return ItemViewHolder(view)
     }
 
@@ -31,7 +34,7 @@ class AffectedCountryAdapter :
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return 5
     }
 
     fun addAll(data: List<ConfirmedCasesModel>) {
@@ -45,9 +48,18 @@ class AffectedCountryAdapter :
 
         fun bind(position: Int) {
             item = items[position]
+            itemView.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorYellow))
+            itemView.tvRecoveredTotal.setTextColor(ContextCompat.getColor(context, R.color.colorYellow))
+            itemView.tvTitle.text = "Total Terkonfirmasi"
 
-            itemView.country.text = item.countryRegion
-
+            itemView.tvCountry.text = item.countryRegion
+            itemView.tvProvince.text = item.provinceState
+            if (item.provinceState != null) {
+                itemView.tvProvince.visibility = View.VISIBLE
+            } else {
+                itemView.tvProvince.visibility = View.GONE
+            }
+            itemView.tvRecoveredTotal.text = thousandSeparatorUtils(item.confirmed)
         }
     }
 }
