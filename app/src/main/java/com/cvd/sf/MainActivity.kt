@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cvd.sf.fragment.MainFragment
 import com.cvd.sf.adapter.TabAdapter
-import com.cvd.sf.fragment.ListFragment
+import com.cvd.sf.fragment.IndonesiaCasesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -17,8 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = TabAdapter(supportFragmentManager)
         adapter!!.addFragment(MainFragment(), "Ringkasan")
-        adapter!!.addFragment(ListFragment(), "Kasus Indonesia")
-        adapter!!.addFragment(MainFragment(), "Kasus Keseluruhan")
+        adapter!!.addFragment(IndonesiaCasesFragment(), "Kasus Indonesia")
 
         viewPager.adapter = adapter
         viewPager.setSwipeEanble(false)

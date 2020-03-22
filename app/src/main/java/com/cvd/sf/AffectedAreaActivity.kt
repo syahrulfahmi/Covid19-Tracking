@@ -54,7 +54,7 @@ class AffectedAreaActivity : AppCompatActivity() {
     }
 
     private fun initData(data: List<ConfirmedCasesModel>) {
-        affectedCountryDetail = AffectedCountryAdapter()
+        affectedCountryDetail = AffectedCountryAdapter(this)
         rvAffectedCountry.adapter = affectedCountryDetail
         affectedCountryDetail.addAll(data)
     }

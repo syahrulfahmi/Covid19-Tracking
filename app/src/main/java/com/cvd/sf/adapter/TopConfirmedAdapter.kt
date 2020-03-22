@@ -50,7 +50,7 @@ class TopConfirmedAdapter (private val context: Context) :
             item = items[position]
             itemView.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorYellow))
             itemView.tvRecoveredTotal.setTextColor(ContextCompat.getColor(context, R.color.colorYellow))
-            itemView.tvTitle.text = "Total Terkonfirmasi"
+            itemView.tvTitle.text = "Total Positif"
 
             itemView.tvCountry.text = item.countryRegion
             itemView.tvProvince.text = item.provinceState
