@@ -3,13 +3,15 @@ package com.cvd.sf
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.cvd.sf.Api.ApiUrl
-import com.cvd.sf.Model.ConfirmedCasesModel
-import com.cvd.sf.adapter.AffectedCountryAdapter
+import com.cvd.sf.Model.ProvinceModel
+import com.cvd.sf.adapter.ProvinceMainListAdapter
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_affected_area.*
@@ -23,39 +25,59 @@ import org.json.JSONArray
 
 class AffectedAreaActivity : AppCompatActivity() {
 
-    private lateinit var affectedCountryDetail: AffectedCountryAdapter
+    private lateinit var provincListAdapter: ProvinceMainListAdapter
+    private lateinit var queue: RequestQueue
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_affected_area)
+
         getData()
+        initScrolling()
+        initListener()
+    }
+
+    private fun initScrolling() {
+        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > oldScrollY) {
+                btnUp.hide()
+            }
+            if (scrollY < oldScrollY) {
+                btnUp.show()
+            }
+        })
+    }
+
+    private fun initListener() {
+        btnUp.setOnClickListener {
+            nestedScrollView.scrollTo(0, 0)
+        }
+    }
+
+    private fun initData(data: List<ProvinceModel>) {
+        provincListAdapter = ProvinceMainListAdapter(this)
+        rvAffectedCountry.adapter = provincListAdapter
+        provincListAdapter.addAll(data)
     }
 
     private fun getData() {
-        val queue = Volley.newRequestQueue(this)
-        val url = ApiUrl.BASE_URL + ApiUrl.CONFIRMED_CASES_URL
+        queue = Volley.newRequestQueue(this)
 
-        val getRequest = JsonArrayRequest(Request.Method.GET,
-            url,
+        val getListProvince = JsonArrayRequest(Request.Method.GET,
+            ApiUrl.API_PROVINCE,
             null,
             Response.Listener<JSONArray> { response ->
                 Log.d("Response", response.toString())
                 val gsonBuilder = GsonBuilder().create()
-                val token: TypeToken<List<ConfirmedCasesModel?>?> =
-                    object : TypeToken<List<ConfirmedCasesModel?>?>() {}
-                val data: List<ConfirmedCasesModel> =
+                val token: TypeToken<List<ProvinceModel?>?> =
+                    object : TypeToken<List<ProvinceModel?>?>() {}
+                val data: List<ProvinceModel> =
                     gsonBuilder.fromJson(response.toString(), token.type)
                 initData(data)
             },
             Response.ErrorListener {
 
             })
-        queue.add(getRequest)
-    }
-
-    private fun initData(data: List<ConfirmedCasesModel>) {
-        affectedCountryDetail = AffectedCountryAdapter(this)
-        rvAffectedCountry.adapter = affectedCountryDetail
-        affectedCountryDetail.addAll(data)
+        queue.add(getListProvince)
     }
 }

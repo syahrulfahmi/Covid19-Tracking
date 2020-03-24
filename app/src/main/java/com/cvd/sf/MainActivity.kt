@@ -2,9 +2,9 @@ package com.cvd.sf
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.cvd.sf.fragment.MainFragment
 import com.cvd.sf.adapter.TabAdapter
 import com.cvd.sf.fragment.IndonesiaCasesFragment
+import com.cvd.sf.fragment.MainFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -23,5 +23,4 @@ class MainActivity : AppCompatActivity() {
         viewPager.setSwipeEanble(false)
         tabLayout.setupWithViewPager(viewPager)
     }
-
 }

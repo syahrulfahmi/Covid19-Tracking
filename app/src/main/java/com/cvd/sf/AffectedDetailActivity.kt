@@ -37,12 +37,12 @@ class AffectedDetailActivity : AppCompatActivity() {
         if (intent.hasExtra(Extra.RECOVERED)) recovered = intent.getIntExtra(Extra.RECOVERED, 0)
         if (intent.hasExtra(Extra.CONFIRMED)) confirmed = intent.getIntExtra(Extra.CONFIRMED, 0)
         if (intent.hasExtra(Extra.DEATHS)) deaths = intent.getIntExtra(Extra.DEATHS, 0)
-        if (intent.hasExtra(Extra.LAST_UPDATE)) intent.getLongExtra(Extra.LAST_UPDATE, 0).let { lastUpdate = it }
+        if (intent.hasExtra(Extra.LAST_UPDATE)) lastUpdate = intent.getLongExtra(Extra.LAST_UPDATE, 0)
     }
 
     private fun initData() {
         val total = confirmed + recovered + deaths
-        tvConfirmedCasesTitle.text = "Kasus $countryName"
+        tvConfirmedCasesTitle.text = "Kasus Di $countryName"
         tvLastUpdate.text = "Last Update: ${milisToDate(lastUpdate)}"
         tvCasesCountry.text = thousandSeparatorUtils(total)
         tvCountryConfirmed.text = thousandSeparatorUtils(confirmed)

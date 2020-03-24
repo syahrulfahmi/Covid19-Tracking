@@ -41,10 +41,16 @@ class AffectedCountryAdapter(private val context: Context) :
         return 100
     }
 
-    fun addAll(data: List<ConfirmedCasesModel>) {
-        items = ArrayList(data)
+    fun addContentAll(data: List<ConfirmedCasesModel>) {
+        items.addAll(data)
         notifyDataSetChanged()
     }
+
+    fun removeAll() {
+        items.clear()
+        notifyDataSetChanged()
+    }
+
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

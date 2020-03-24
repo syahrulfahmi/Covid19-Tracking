@@ -35,4 +35,5 @@ task clean(type: Delete) {
 ext {
     recyclerView = '1.1.0-beta03'
     googleMaterial = '1.0.0-alpha1'
+    scrollingPagerIndicator = '1.0.6'
 }

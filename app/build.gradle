@@ -14,6 +14,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -36,6 +37,8 @@ dependencies {
     implementation "com.google.android.material:material:$rootProject.googleMaterial"
     implementation 'com.github.ViksaaSkool:AwesomeSplash:v1.0.0'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:$rootProject.scrollingPagerIndicator"
+    implementation 'com.github.AnyChart:AnyChart-Android:0.0.3'
 
     //RETROFIT
 

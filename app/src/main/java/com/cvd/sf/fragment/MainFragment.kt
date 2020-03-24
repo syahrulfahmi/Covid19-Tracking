@@ -1,6 +1,5 @@
 package com.cvd.sf.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.cvd.sf.AffectedAreaActivity
 import com.cvd.sf.Api.ApiUrl
 import com.cvd.sf.Model.ConfirmedCasesModel
 import com.cvd.sf.Model.MainCasesModel
@@ -56,7 +54,6 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getData()
-        initListener()
     }
 
     private fun iniData(data: MainCasesModel) {
@@ -92,11 +89,12 @@ class MainFragment : Fragment() {
     }
 
     private fun initTopRecoveredList(list: List<ConfirmedCasesModel>) {
-        topRecoveredAdapter = TopRecoveredAdapter()
+        topRecoveredAdapter = TopRecoveredAdapter(context!!)
         rvTopRecovered.adapter = topRecoveredAdapter
 
         LinearSnapHelper().attachToRecyclerView(rvTopRecovered)
         rvTopRecovered.addItemDecoration(HorizontalMarginItemDecoration(12.dpToPx()))
+        topRecoveredIndicator.attachToRecyclerView(rvTopRecovered)
         topRecoveredAdapter.addAll(list)
     }
 
@@ -106,6 +104,7 @@ class MainFragment : Fragment() {
 
         LinearSnapHelper().attachToRecyclerView(rvTopConfirmed)
         rvTopConfirmed.addItemDecoration(HorizontalMarginItemDecoration(12.dpToPx()))
+        topConfirmedIndicator.attachToRecyclerView(rvTopConfirmed)
         topConfirmedAdapter.addAll(list)
     }
 
@@ -115,17 +114,8 @@ class MainFragment : Fragment() {
 
         LinearSnapHelper().attachToRecyclerView(rvTopDeaths)
         rvTopDeaths.addItemDecoration(HorizontalMarginItemDecoration(12.dpToPx()))
+        topDeathsIndicator.attachToRecyclerView(rvTopDeaths)
         topDeathsAdapter.addAll(list)
-    }
-
-    private fun initListener() {
-        val view = arrayListOf(tvMore,tvMore2, tvMore3)
-        for (i in view) {
-            i.setOnClickListener {
-                val intent = Intent(activity, AffectedAreaActivity::class.java)
-                startActivity(intent)
-            }
-        }
     }
 
     private fun getData() {

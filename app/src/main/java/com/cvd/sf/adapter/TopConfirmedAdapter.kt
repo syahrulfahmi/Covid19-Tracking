@@ -1,13 +1,17 @@
 package com.cvd.sf.adapter
 
 import android.content.Context
+import android.content.Intent
 import com.cvd.sf.Model.ConfirmedCasesModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.cvd.sf.AffectedDetailActivity
+import com.cvd.sf.MainActivity
 import com.cvd.sf.R
+import com.cvd.sf.Utils.Extra
 import com.cvd.sf.Utils.thousandSeparatorUtils
 import kotlinx.android.synthetic.main.item_top_affected.view.*
 import java.util.*
@@ -34,7 +38,7 @@ class TopConfirmedAdapter (private val context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return 10
     }
 
     fun addAll(data: List<ConfirmedCasesModel>) {
@@ -60,6 +64,18 @@ class TopConfirmedAdapter (private val context: Context) :
                 itemView.tvProvince.visibility = View.GONE
             }
             itemView.tvRecoveredTotal.text = thousandSeparatorUtils(item.confirmed)
+
+            val activity = (context as MainActivity)
+            itemView.cvItemTop.setOnClickListener {
+                val intent = Intent(activity, AffectedDetailActivity::class.java).apply {
+                    putExtra(Extra.COUNTRY, item.countryRegion)
+                    putExtra(Extra.RECOVERED, item.recovered)
+                    putExtra(Extra.CONFIRMED, item.confirmed)
+                    putExtra(Extra.DEATHS, item.deaths)
+                    putExtra(Extra.LAST_UPDATE, item.lastUpdate)
+                }
+                activity.startActivity(intent)
+            }
         }
     }
 }
