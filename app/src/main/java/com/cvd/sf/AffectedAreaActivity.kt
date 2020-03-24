@@ -2,6 +2,7 @@ package com.cvd.sf
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.android.volley.Request
@@ -17,7 +18,6 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_affected_area.*
 import org.json.JSONArray
 
-
 /**
  * بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
  * Created By fahmi on 22/03/20
@@ -31,6 +31,13 @@ class AffectedAreaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_affected_area)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         getData()
         initScrolling()
