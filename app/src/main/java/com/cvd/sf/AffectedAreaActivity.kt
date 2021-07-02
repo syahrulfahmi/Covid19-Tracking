@@ -2,21 +2,18 @@ package com.cvd.sf
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import com.cvd.sf.Api.ApiUrl
+import com.cvd.sf.api.ApiUrl
 import com.cvd.sf.Model.ProvinceModel
 import com.cvd.sf.adapter.ProvinceMainListAdapter
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_affected_area.*
-import org.json.JSONArray
 
 /**
  * بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
@@ -45,7 +42,7 @@ class AffectedAreaActivity : AppCompatActivity() {
     }
 
     private fun initScrolling() {
-        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
             if (scrollY > oldScrollY) {
                 btnUp.hide()
             }
@@ -73,7 +70,7 @@ class AffectedAreaActivity : AppCompatActivity() {
         val getListProvince = JsonArrayRequest(Request.Method.GET,
             ApiUrl.API_PROVINCE,
             null,
-            Response.Listener<JSONArray> { response ->
+            { response ->
                 Log.d("Response", response.toString())
                 val gsonBuilder = GsonBuilder().create()
                 val token: TypeToken<List<ProvinceModel?>?> =
@@ -82,7 +79,7 @@ class AffectedAreaActivity : AppCompatActivity() {
                     gsonBuilder.fromJson(response.toString(), token.type)
                 initData(data)
             },
-            Response.ErrorListener {
+            {
 
             })
         queue.add(getListProvince)

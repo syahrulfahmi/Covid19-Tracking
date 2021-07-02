@@ -11,12 +11,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.cvd.sf.AffectedAreaActivity
-import com.cvd.sf.Api.ApiUrl
+import com.cvd.sf.api.ApiUrl
 import com.cvd.sf.Model.CountryCasesModel
 import com.cvd.sf.Model.ProvinceModel
 import com.cvd.sf.R
@@ -28,7 +27,6 @@ import kotlinx.android.synthetic.main.fragment_indonesia_cases.*
 import kotlinx.android.synthetic.main.layout_whats_do.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
-import org.json.JSONArray
 
 
 /**
@@ -60,28 +58,26 @@ class IndonesiaCasesFragment : Fragment() {
 
         val getConfirmedCases = StringRequest(
             Request.Method.GET, ApiUrl.BASE_URL + "countries/indonesia",
-            Response.Listener<String> { response ->
+            { response ->
                 val gsonBuilder = GsonBuilder().create()
                 val data = gsonBuilder.fromJson(response, CountryCasesModel::class.java)
                 initData(data)
             },
-            Response.ErrorListener {
+            {
                 Log.d("Error.Response", it.toString())
             })
 
         val getListProvince = JsonArrayRequest(Request.Method.GET,
             ApiUrl.API_PROVINCE,
             null,
-            Response.Listener<JSONArray> { response ->
+            { response ->
                 Log.d("Response", response.toString())
                 val gsonBuilder = GsonBuilder().create()
-                val token: TypeToken<List<ProvinceModel?>?> =
-                    object : TypeToken<List<ProvinceModel?>?>() {}
-                val data: List<ProvinceModel> =
-                    gsonBuilder.fromJson(response.toString(), token.type)
+                val token: TypeToken<List<ProvinceModel?>?> = object : TypeToken<List<ProvinceModel?>?>() {}
+                val data: List<ProvinceModel> = gsonBuilder.fromJson(response.toString(), token.type)
                 initRecylerView(data)
             },
-            Response.ErrorListener {
+            {
 
             })
 

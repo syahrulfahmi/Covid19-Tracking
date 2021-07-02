@@ -13,7 +13,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.cvd.sf.Api.ApiUrl
+import com.cvd.sf.api.ApiUrl
 import com.cvd.sf.Model.ConfirmedCasesModel
 import com.cvd.sf.Model.MainCasesModel
 import com.cvd.sf.R
